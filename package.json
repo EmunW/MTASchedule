@@ -3,14 +3,16 @@
   "description": "",
   "version": "1.0.0",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
-    "express": "^4.20.0"
+    "express": "^4.20.0",
+    "gtfs-realtime-bindings": "^1.1.1",
+    "node-fetch": "^3.3.2"
   },
-  "devDependencies": {},
   "keywords": [],
   "author": "",
   "license": "ISC"

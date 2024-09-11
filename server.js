@@ -1,6 +1,5 @@
-const express = require('express');
-const dotenv = require('dotenv').config();
-const trainTimesController = require("./controllers/trainTimesController")
+import express from 'express'
+import trainTimesController from './controllers/trainTimesController.js';
 
 const port = process.env.PORT || 4000;
 
