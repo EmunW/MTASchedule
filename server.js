@@ -11,7 +11,7 @@ app.post("test", (req, res) =>{
 })
 
 app.get("/", trainTimesController.trainTimes, (req, res) => {
-  res.send("EXPRESS SERVER WORKING")
+  res.status(200).send("EXPRESS SERVER WORKING")
 })
 
 app.listen(port, () =>{

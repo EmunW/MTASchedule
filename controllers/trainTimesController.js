@@ -1,11 +1,23 @@
 import GtfsRealtimeBindings from "gtfs-realtime-bindings";
 import fetch from "node-fetch";
+import get_stations from "./getStations.js";
 
 const trainTimesController = {}
 
 trainTimesController.trainTimes = async (req, res, next) => {
   try{
-    await GtfsToJson();
+    const schedule = {};
+    schedule.ACE = await GtfsToJson("https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs-ace");
+    schedule.BDFM = await GtfsToJson("https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs-bdfm");
+    schedule.G = await GtfsToJson("https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs-g");
+    schedule.JZ = await GtfsToJson("https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs-jz");
+    schedule.NQRW = await GtfsToJson("https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs-nqrw");
+    schedule.L = await GtfsToJson("https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs-l");
+    schedule.Numbers = await GtfsToJson("https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs");
+    schedule.Sir = await GtfsToJson("https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs-si")
+
+    get_stations();
+    next();
   }
   catch(err){
     console.error("Error occurred in trainTimes.js: ", err)
@@ -13,15 +25,9 @@ trainTimesController.trainTimes = async (req, res, next) => {
   }
 }
 
-const GtfsToJson = (async () => {
+const GtfsToJson = (async (URL) => {
   try {
-    const response = await fetch("https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs-nqrw", {
-      headers: {
-        "x-api-key": "<redacted>",
-        // replace with your GTFS-realtime source's auth token
-        // e.g. x-api-key is the header value used for NY's MTA GTFS APIs
-      },
-    });
+    const response = await fetch(URL)
     if (!response.ok) {
       const error = new Error(`${response.url}: ${response.status} ${response.statusText}`);
       error.response = response;
@@ -33,6 +39,7 @@ const GtfsToJson = (async () => {
       new Uint8Array(buffer)
     );
     console.log(feed.entity[0])
+    return feed;
   }
   catch (error) {
     console.log(error);
