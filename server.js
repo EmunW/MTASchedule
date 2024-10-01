@@ -11,7 +11,7 @@ app.post("test", (req, res) =>{
 })
 
 app.get("/", (req, res) => {
-  res.status(200).send("EXPRESS SERVER WORKING")
+  res.status(200).json(res.locals.feeds)
 })
 
 app.get("/stations", trainStationsController.trainStations, (req, res) => {

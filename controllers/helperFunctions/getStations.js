@@ -46,12 +46,12 @@ export default function get_stations(){
       if(stop.stop_name === station){
         if(name_found == false){
           newStops[count].name = stop.stop_name;
-          console.log(stops[count].stop_name)
+          // console.log(stops[count].stop_name)
           name_found = true
         }
         let stopId = stop.stop_id
-        console.log("STOPP: ", stop)
-        console.log("STOPID: ", typeof stopId)
+        // console.log("STOPP: ", stop)
+        // console.log("STOPID: ", typeof stopId)
         // "N" or "S" is the direction the train is headed
         if(stopId[stopId.length-1] == "N" || stopId[stopId.length-1] == "S"){
           continue
@@ -67,6 +67,6 @@ export default function get_stations(){
     for(let count in Object.keys(newStops)){
       stops2.push(newStops[count])
     }
-    console.log("STOPS2: ", stops2)
+    // console.log("STOPS2: ", stops2)
     return stops2
 }
