@@ -34,32 +34,38 @@ export default function get_stations(){
     stationSet.add(stop.stop_name);
   }
   const stations = [...stationSet]
+  // console.log("STOPS: ", stops)
   let count = 0;
+  const newStops = []
   for(let station of stations){
-    stops[count] = {'station_id': count, 'name': station, 'stop_ids': []}
+    newStops[count] = {'station_id': count, 'name': station, 'stop_ids': []}
     // console.log("STOPS COUNT: ", stops[count])
     // console.log(station);
     let name_found = false
     for(let stop of stops){
       if(stop.stop_name === station){
         if(name_found == false){
-          stops[count].name = stop.stop_name;
+          newStops[count].name = stop.stop_name;
+          console.log(stops[count].stop_name)
           name_found = true
         }
         let stopId = stop.stop_id
-        if(stopId[-1] == "N" || stopId[-1] == "S"){
+        console.log("STOPP: ", stop)
+        console.log("STOPID: ", typeof stopId)
+        // "N" or "S" is the direction the train is headed
+        if(stopId[stopId.length-1] == "N" || stopId[stopId.length-1] == "S"){
           continue
         }
         else{
-          stops[count].stop_ids = stopId;
+          newStops[count].stop_ids = stopId;
         }
       }
     }
     count++;
   }
   const stops2 = []
-    for(let count in Object.keys(stops)){
-      stops2.push(stops[count])
+    for(let count in Object.keys(newStops)){
+      stops2.push(newStops[count])
     }
     console.log("STOPS2: ", stops2)
     return stops2

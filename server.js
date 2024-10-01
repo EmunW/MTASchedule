@@ -1,17 +1,21 @@
 import express from 'express'
-import trainTimesController from './controllers/trainTimesController.js';
+import trainStationsController from './controllers/trainStationsController.js';
 
 const port = process.env.PORT || 4000;
 
 const app = express();
 
 app.post("test", (req, res) =>{
-  trainTimesController(req, res);
+  trainStationsController(req, res);
   res.status(200).send("GOOD");
 })
 
-app.get("/", trainTimesController.trainTimes, (req, res) => {
+app.get("/", (req, res) => {
   res.status(200).send("EXPRESS SERVER WORKING")
+})
+
+app.get("/stations", trainStationsController.trainStations, (req, res) => {
+  res.status(200).send("GOT STATIONS")
 })
 
 app.listen(port, () =>{

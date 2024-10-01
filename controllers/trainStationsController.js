@@ -2,9 +2,9 @@ import GtfsRealtimeBindings from "gtfs-realtime-bindings";
 import fetch from "node-fetch";
 import get_stations from "./getStations.js";
 
-const trainTimesController = {}
+const trainStationsController = {}
 
-trainTimesController.trainTimes = async (req, res, next) => {
+trainStationsController.trainStations = async (req, res, next) => {
   try{
     const schedule = {};
     schedule.ACE = await GtfsToJson("https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs-ace");
@@ -38,7 +38,8 @@ const GtfsToJson = (async (URL) => {
     const feed = GtfsRealtimeBindings.transit_realtime.FeedMessage.decode(
       new Uint8Array(buffer)
     );
-    console.log(feed.entity[0])
+    // console.log(feed.entity[0])
+    trainStationsController.feed = feed;
     return feed;
   }
   catch (error) {
@@ -48,4 +49,4 @@ const GtfsToJson = (async (URL) => {
 });
 
 
-export default trainTimesController
+export default trainStationsController
