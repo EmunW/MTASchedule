@@ -1,44 +1,17 @@
-import GtfsRealtimeBindings from "gtfs-realtime-bindings";
-import fetch from "node-fetch";
+import combine_feeds from "./helperFunctions/combineFeeds";
+import get_stations from "./helperFunctions/getStations";
 
-const trainTimesController = {}
+const feeds = combine_feeds()
+const currentTime = Date.now();
+// Get train times that are listed on the feed
+const train_station_times = () => {
+  const stationTimes = []
+  const stations = get_stations();
+  for(let station of stations){
 
-trainTimesController.trainTimes = async (req, res, next) => {
-  try{
-    await GtfsToJson();
-  }
-  catch(err){
-    console.error("Error occurred in trainTimes.js: ", err)
-    next(err);
   }
 }
-
-const GtfsToJson = (async () => {
-  try {
-    const response = await fetch("https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs-nqrw", {
-      headers: {
-        "x-api-key": "<redacted>",
-        // replace with your GTFS-realtime source's auth token
-        // e.g. x-api-key is the header value used for NY's MTA GTFS APIs
-      },
-    });
-    if (!response.ok) {
-      const error = new Error(`${response.url}: ${response.status} ${response.statusText}`);
-      error.response = response;
-      throw error;
-      process.exit(1);
-    }
-    const buffer = await response.arrayBuffer();
-    const feed = GtfsRealtimeBindings.transit_realtime.FeedMessage.decode(
-      new Uint8Array(buffer)
-    );
-    console.log(feed.entity[0])
-  }
-  catch (error) {
-    console.log(error);
-    process.exit(1);
-  }
-});
-
-
-export default trainTimesController
+// Data will be stored as a dictionary
+// Convert the milliseconds to minutes
+// Do not want all the data so limit it to trains within 30 minutes away, if no trains then get the earliest train
+// 
