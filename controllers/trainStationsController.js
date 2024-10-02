@@ -1,11 +1,10 @@
-
-import combine_feeds from "./helperFunctions/combineFeeds.js";
+import get_stations from "./helperFunctions/getStations.js";
 
 const trainStationsController = {};
 
 trainStationsController.trainStations = async (req, res, next) => {
   try{ 
-    res.locals.feeds = await combine_feeds();
+    res.locals.feeds = await get_stations();
     next();
   }
   catch(err){

@@ -11,11 +11,11 @@ app.post("test", (req, res) =>{
 })
 
 app.get("/", (req, res) => {
-  res.status(200).json(res.locals.feeds)
+  res.status(200).send("EXPRESS SERVER WORKING")
 })
 
 app.get("/stations", trainStationsController.trainStations, (req, res) => {
-  res.status(200).send("GOT STATIONS")
+  res.status(200).json(res.locals.feeds)
 })
 
 app.listen(port, () =>{
