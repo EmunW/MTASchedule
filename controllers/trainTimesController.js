@@ -21,7 +21,7 @@ trainTimesController.trainStationTimes = (req, res, next) => {
     next();
   }
   catch(err){
-    console.log("Error occurred in trainTimesController.js: ", err)
+    console.error("Error occurred in trainTimesController.js: ", err)
   }
 }
 
