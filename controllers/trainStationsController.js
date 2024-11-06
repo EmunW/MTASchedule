@@ -8,7 +8,7 @@ trainStationsController.trainStations = async (req, res, next) => {
     next();
   }
   catch(err){
-    console.error("Error occurred in trainTimes.js: ", err)
+    console.error("Error occurred in trainStationsController.js: ", err)
     next(err);
   }
 }

@@ -16,7 +16,7 @@ export default async function combine_feeds() {
     const entity = await GtfsToJson(URL);
     feeds.push(entity.entity);
   }
-  console.log(feeds.flat())
+  // console.log(feeds.flat())
   return feeds.flat();
 }
 
